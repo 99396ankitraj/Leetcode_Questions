@@ -3,21 +3,32 @@ public:
     int maxWidthRamp(vector<int>& nums) {
         ios_base::sync_with_stdio(false);
         cin.tie(NULL);
-        stack<int> monoStack;
         int n = nums.size();
-        int result = 0;
-        for (int i = 0; i < n; ++i) {
-            if (monoStack.empty() || nums[monoStack.top()] > nums[i]) {
-                monoStack.push(i);
-            }
-        }
-        for (int j = n - 1; j >= 0; --j) {
-            while (!monoStack.empty() && nums[j] >= nums[monoStack.top()]) {
-                result = max(result, j - monoStack.top());
-                monoStack.pop();
+        stack<int> st;
+        
+        st.push(0);
+
+        for(int i = 1; i < n; i++){
+            if(nums[st.top()] > nums[i]){
+                st.push(i);
             }
         }
 
-        return result;
+        int ans = 0;
+
+        for(int i = n-1; i >= 0; ){
+
+            while(!st.empty() and nums[st.top()] <= nums[i]){
+                ans = max(ans, i - st.top());
+                st.pop();
+            }
+
+            if(st.empty()) break;
+
+            i--;
+        }
+
+        return ans;
+
     }
 };
