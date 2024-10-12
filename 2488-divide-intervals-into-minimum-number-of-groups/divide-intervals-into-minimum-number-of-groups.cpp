@@ -1,26 +1,31 @@
 class Solution {
 public:
-    int minGroups(vector<vector<int>>& times) { 
-        ios_base::sync_with_stdio(false); 
-        cout.tie(nullptr);
-        cin.tie(nullptr);
-        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
-        int station = 0;
+    int minGroups(vector<vector<int>>& intervals) {
+    int n = intervals.size();
+    vector<int> start;
+    vector<int> end;
 
-        sort(times.begin(), times.end());
-
-        for (const auto& itr : times) {
-            int arrival = itr[0];
-            int departure = itr[1];
-
-            if (!pq.empty() && arrival > pq.top().first) {
-                pq.push({departure, pq.top().second});
-                pq.pop();
-            } else {
-                pq.push({departure, station++});
-            }
-        }
-        return station;
+    for(vector<int>& a : intervals){
+        start.push_back(a[0]);
+        end.push_back(a[1]);
     }
-};
 
+    sort(start.begin(),start.end());
+    sort(end.begin(),end.end());
+
+    int i=0,j=0;
+    int maxGroups = 0,groups = 0;
+    while(i<n && j<n){
+        if(start[i] <= end[j]){
+            groups++;
+            i++;
+        }
+        else{
+            groups--;
+            j++;
+        }
+        maxGroups = max(maxGroups,groups);
+    }
+    return maxGroups;
+    }
+};
