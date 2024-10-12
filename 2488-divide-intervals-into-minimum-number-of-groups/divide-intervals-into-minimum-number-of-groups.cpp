@@ -1,9 +1,12 @@
 class Solution {
 public:
     int minGroups(vector<vector<int>>& times) { 
+        ios_base::sync_with_stdio(false); 
+        cout.tie(nullptr);
+        cin.tie(nullptr);
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
         int station = 0;
-        
+
         sort(times.begin(), times.end());
 
         for (const auto& itr : times) {
