@@ -1,6 +1,8 @@
 class Solution {
 public:
     int smallestChair(vector<vector<int>>& times, int targetFriend) {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);
         int target = times[targetFriend][0];
         sort(times.begin() ,times.end());
         priority_queue<vector<int> , vector<vector<int>> , greater<vector<int>>> pq;
