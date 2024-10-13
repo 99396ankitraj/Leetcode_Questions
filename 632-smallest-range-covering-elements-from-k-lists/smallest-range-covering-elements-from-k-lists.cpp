@@ -17,7 +17,7 @@ public:
 
         vector<int> ans;
         int n = v.size();
-        int i = 0, j = 0, len = numeric_limits<int>::max();
+        int i = 0, j = 0, len = INT_MAX;
 
         while (i <= j && j < n) {
             if (v[j] - v[i] < len) {
