@@ -1,48 +1,38 @@
-#include <vector>
-#include <algorithm>
-#include <iostream>
-
-using namespace std;
-
 class Solution {
 public:
     vector<int> smallestRange(vector<vector<int>>& nums) {
-        vector<int> v;
-        for (const auto& itr : nums) {
-            for (const auto& it : itr) {
-                v.push_back(it);
-            }
-        }
-        sort(v.begin(), v.end());
-
+        int n = nums.size();
+        // Min-heap to store {value, array_index, element_index}
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
         vector<int> ans;
-        int n = v.size();
-        int i = 0, j = 0, len = INT_MAX;
+        int maxi = INT_MIN;
 
-        while (i <= j && j < n) {
-            if (v[j] - v[i] < len) {
-                int x = nums.size();
-                for (int k = 0; k < nums.size(); k++) {
-                    auto it = lower_bound(nums[k].begin(), nums[k].end(), v[i]);
-                    if (it != nums[k].end() && *it <= v[j]) {
-                        x--;
-                    } else {
-                        break;
-                    }
-                }
-                if (x == 0) {
-                    if (ans.empty() || ans[1] - ans[0] > v[j] - v[i]) {
-                        ans = {v[i], v[j]};
-                        len = v[j] - v[i];  
-                    }
-                    i++;  
-                } else {
-                    j++;  
-                }
-            } else {
-                i++;
-            }
+        // Push the first element of each array into the min-heap
+        for (int i = 0; i < n; i++) {
+            pq.push({nums[i][0], i, 0});
+            maxi = max(maxi, nums[i][0]);
         }
+
+        while (true) {
+            if (ans.empty() || (ans[1] - ans[0]) > (maxi - pq.top()[0])) {
+                ans = {pq.top()[0], maxi};
+            }
+            
+            auto top = pq.top();
+            int ele = top[0];
+            int arr_number = top[1];
+            int itr = top[2];
+            pq.pop();
+            
+            // Check if there's a next element in the same array
+            if (itr + 1 == nums[arr_number].size()) {
+                break;
+            }
+            
+            pq.push({nums[arr_number][itr + 1], arr_number, itr + 1});
+            maxi = max(maxi, nums[arr_number][itr + 1]);
+        }
+
         return ans;
     }
 };
