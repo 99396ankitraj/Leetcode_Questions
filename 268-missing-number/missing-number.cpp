@@ -4,7 +4,8 @@ public:
         int ans = 0;
         int n = nums.size();
         for(int i = 0 ; i < n ; i++){
-            ans ^= nums[i] ^ (i+1);
+            ans ^= nums[i] ;
+            ans ^=(i+1);
         }
         return ans;
     }
