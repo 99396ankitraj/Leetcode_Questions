@@ -4,6 +4,7 @@ public:
         return a[1] < b[1];
     }
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
         sort(intervals.begin() , intervals.end() ,cmp);
         int currentEnd = intervals[0][1] , n = intervals.size();
         int ans = 0;
