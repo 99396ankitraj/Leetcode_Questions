@@ -1,6 +1,9 @@
 class Solution {
 public:
     int largestPerimeter(vector<int>& nums) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
+        cout.tie(nullptr);
         priority_queue<int> pq(nums.begin(), nums.end());
         int s1 = pq.top();
         pq.pop();
