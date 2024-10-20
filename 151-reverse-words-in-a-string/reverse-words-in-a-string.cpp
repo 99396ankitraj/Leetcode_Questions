@@ -28,9 +28,9 @@ public:
             right++;
             left = right;
 
-            k++;
+            // k++;
         }
         s.resize(right-1);
-        return s;
-    }
+        return s;
+    }
 };
