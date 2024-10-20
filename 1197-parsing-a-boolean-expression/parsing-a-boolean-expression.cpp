@@ -1,6 +1,7 @@
 class Solution {
 public:
     bool parseBoolExpr(string exp) {
+        ios::sync_with_stdio(0); cin.tie(0);
         stack<char>s1(exp.begin(),exp.end());
         stack<char>s2;
         char flag = ' ';
