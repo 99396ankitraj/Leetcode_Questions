@@ -1,23 +1,18 @@
 class Solution {
 public:
-    vector<int> getMaximumXor(vector<int>& nums, int maximumBit) {
-        int n = nums.size() , Xor = 0;
-        int maxi = pow(2 , maximumBit) - 1;
+    vector<int> getMaximumXor(vector<int>& nums, int mb) {
+        
+        int n = nums.size();
+        int k = (1<<mb)-1;
+        int xor_sum = accumulate(nums.begin(), nums.end(), 0,bit_xor<int>());
+        vector<int> ans;
 
-        for(int i = 0 ; i < n ; i++){
-            Xor ^= nums[i];
-            nums[i] = Xor;
+        for(int i = n-1; i>= 0; i--)
+        {
+            ans.push_back(xor_sum^k);
+            xor_sum^=nums[i];
         }
 
-        vector<int>ans;
-        n--;
-
-        while(n >= 0){
-            ans.push_back(maxi - nums[n]);
-            n--;
-        }
-
-        cout<<maxi;
         return ans;
     }
 };
