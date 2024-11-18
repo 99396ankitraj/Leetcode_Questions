@@ -1,23 +1,29 @@
 class Solution {
 public:
-    int shortestSubarray(vector<int>& nums, int k) {
-        using ll = long long;
-        int n = nums.size(); 
-        long long ans = LLONG_MAX;
-        long long sum =0;
-        priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>>pq;
-        for(ll i=0; i<n; i++){
-            sum += nums[i];
-            if(sum>=k){
-                ans = min(ans,i+1);
+    static int shortestSubarray(vector<int>& nums, int k) {
+        const int n=nums.size();
+        long long sum[n];
+        sum[0]=nums[0];
+
+        int dp[n], front=0, back=-1, len=1e9;
+        for(int r=0; r<n; r++){
+            if (r>0) sum[r]=sum[r-1]+nums[r];
+            if (sum[r]>=k) len=min(len, r+1);
+            while(front<=back && sum[r]-sum[dp[front]]>=k){
+                len=min(len, r-dp[front]);
+                front++;
             }
-            while(!pq.empty() && (sum-pq.top().first)>=k){
-              
-                ans = min(ans,i-pq.top().second);
-                pq.pop();
-            }
-            pq.push({sum,i});
+            while(front<=back && sum[r]<=sum[dp[back]]) back--;
+            dp[++back]=r;
         }
-        return ans ==INT_MAX?-1:(ans);
+        return len==1e9?-1:len;
     }
 };
+
+
+auto init = []() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 'c';
+}();
