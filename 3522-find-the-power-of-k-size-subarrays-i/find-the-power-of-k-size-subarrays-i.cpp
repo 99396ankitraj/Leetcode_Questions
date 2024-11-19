@@ -8,14 +8,11 @@ public:
             if(nums[j-1] < nums[j] && nums[j-1]+1 == nums[j]){
                if((j - i + 1) == k){
                   ans[j-k +1] = nums[j];
-                  i++; j++;
-               }else{
-                  j++;
+                  i++;
                }
-            }else{
-                 i = j;
-                 j++;
-            }
+            }else i = j;
+            
+              j++; 
         }
       return ans;
     }
