@@ -12,7 +12,7 @@ public:
         if(v[0] < k || v[1] < k || v[2] < k) return -1;
         for(int end =0;end<n;end++){
             v[s[end]-'a']--;
-            while(start<=end && (v[0] < k || v[1] < k || v[2] < k)){
+            while( (v[0] < k || v[1] < k || v[2] < k)){
                 v[s[start++]-'a']++;
             }
             mina = min(mina,n-(end-start+1));
