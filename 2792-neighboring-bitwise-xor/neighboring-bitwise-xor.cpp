@@ -13,8 +13,6 @@ public:
             if(derived[i] != orignal[i]^orignal[(i+1)%n]) return false;
         }
 
-        
-
         return true;
     }
 };
