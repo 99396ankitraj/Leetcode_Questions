@@ -1,40 +1,38 @@
 class Solution {
-    std::unordered_map<std::string, unsigned int> map;
 public:
     vector<int> findSubstring(string s, vector<string>& words) {
-        std::vector<int> result;
-        unsigned int length = words[0].size();
+        unordered_map<string,int>freq;
+        for(auto itr : words) freq[itr]++;
+        int len = words[0].length();
 
-        map.clear();
-        for (const std::string& word : words)
-            map[word]++;
+        vector<int> ans;
+        for(int i = 0 ; i < len ; i++){
+            unordered_map<string,int>store;
+            int count = 0;
+            for(int j = i ; j+len <= s.length() ; j += len){
+                string str = s.substr(j , len);
 
-        for (unsigned int offset = 0; offset < length; ++offset) {
-            unsigned int size = 0;
-            std::unordered_map<std::string, unsigned int> seen;
-            for (unsigned int i = offset; i + length <= s.size(); i += length) {
-                std::string sub = s.substr(i, length);
-
-                auto itr = map.find(sub);
-                if (itr == map.end()) {
-                    seen.clear();
-                    size = 0;
+                auto itr = freq.find(str);
+                if(itr == freq.end()){
+                    store.clear();
+                    count = 0;
                     continue;
                 }
 
-                ++seen[sub];
-                ++size;
-                while (seen[sub] > itr->second) {
-                    std::string first = s.substr(i - (size - 1) * length, length);
-                    --seen[first];
-                    --size;
+                store[str]++;
+                count++;
+                while(store[str] > itr->second){
+                    string first = s.substr(j-(count-1)*len , len);
+                    store[first]--;
+                    count--;
                 }
-                
-                if (size == words.size())
-                    result.push_back(i - (size - 1) * length);
+
+                if(count == words.size()){
+                    ans.push_back(j-(count-1)*len);
+                }
             }
         }
 
-        return result;
+        return ans;
     }
 };
