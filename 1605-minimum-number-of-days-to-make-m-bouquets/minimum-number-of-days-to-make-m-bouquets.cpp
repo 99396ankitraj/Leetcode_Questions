@@ -22,7 +22,7 @@ public:
     int minDays(vector<int>& bloom, int m, int k) {
         int n = bloom.size();
         int ans = -1;
-        if(static_cast<long long>(m) * k > n) return -1;
+        if((long long)m * (long long)k > n) return -1;
 
 
         int low = 1;
