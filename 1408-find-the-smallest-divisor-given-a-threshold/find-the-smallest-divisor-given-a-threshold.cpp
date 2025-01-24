@@ -4,7 +4,7 @@ public:
         int count = 0;
 
         for(int i = 0 ; i < nums.size() ; i++){
-            count += ceil((double)nums[i]/mid);
+            count+=((nums[i]+mid-1)/mid);;
             if(count > threshold) return false;
         }
         return true;
