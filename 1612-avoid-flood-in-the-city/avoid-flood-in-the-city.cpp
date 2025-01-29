@@ -2,32 +2,30 @@ class Solution {
 public:
     vector<int> avoidFlood(vector<int>& rains) {
         int n = rains.size();
-        unordered_map<int, int> lakeMap; // Stores the last day a lake was full
-        set<int> dryDays; // Stores the indices of dry days
-        vector<int> result(n, -1); // Initialize result with -1
+        unordered_map<int, int> mp;
+        set<int> st;
+        vector<int> ans(n, -1);
 
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; i++) {
             if (rains[i] == 0) {
-                dryDays.insert(i); // Store the dry day index
+                st.insert(i);
             } else {
-                int lake = rains[i];
-                if (lakeMap.count(lake)) {
-                    auto it = dryDays.upper_bound(lakeMap[lake]); // Find the first dry day after the last rainy day for the same lake
-                    if (it == dryDays.end()) {
-                        return {}; // No valid dry day to prevent flood
+                if (mp.count(rains[i])) {
+                    auto it = st.upper_bound(mp[rains[i]]);
+                    if (it == st.end()) {
+                        return {};
                     }
-                    result[*it] = lake; // Dry the lake on the found dry day
-                    dryDays.erase(it); // Remove the used dry day
+                    ans[*it] = rains[i];
+                    mp[rains[i]] = i;
+                    st.erase(*it);
                 }
-                lakeMap[lake] = i; // Update the last day the lake was full
+                mp[rains[i]] = i;
             }
         }
 
-        // Fill remaining dry days with any number, e.g., 1 (or any other appropriate number)
-        for (int day : dryDays) {
-            result[day] = 1;
+        for (auto itr : st) {
+            ans[itr] = 1;
         }
-
-        return result;
+        return ans;
     }
 };
