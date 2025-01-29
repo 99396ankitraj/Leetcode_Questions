@@ -2,7 +2,7 @@ class Solution {
 public:
     int findParent(vector<int>&parent , int node){
         if(parent[node] == node) return node;
-        return  findParent(parent , parent[node]); 
+        return parent[node] = findParent(parent , parent[node]); 
     }
     void unionSet( vector<int>&parent ,  vector<int>&rank , int u , int v){
         if(rank[u] > rank[v]) parent[v] = u;
