@@ -22,7 +22,6 @@ public:
                 mp[rains[i]] = i;
             }
         }
-
         for (auto itr : st) {
             ans[itr] = 1;
         }
