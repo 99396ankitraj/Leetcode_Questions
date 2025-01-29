@@ -24,7 +24,7 @@ public:
             int v = findParent(parents , itr[1]);
             if(u != v){
                 unionSet(parents , rank , u , v);
-                cout<<"ankit"<<endl;
+                //cout<<"ankit"<<endl;
             }
             else return {itr[0] ,itr[1]};
         }
