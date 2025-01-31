@@ -29,7 +29,7 @@ public:
         for(int i = 0 ; i < n ; i++){
             if(!vis[i]){
                 count++;
-                dfs(i , adj , vis );
+                dfs(i , adj , vis);
             }
         }
 
