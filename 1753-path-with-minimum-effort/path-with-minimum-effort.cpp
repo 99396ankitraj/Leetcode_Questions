@@ -19,7 +19,11 @@ public:
             int i = node.second.first;
             int j = node.second.second;
 
-            //if(d > dist[i][j])continue;
+            if(i == n-1 && j == m-1){
+                return dist[i][j];
+            }
+
+            if(d > dist[i][j])continue;
 
             for(auto dir : directions){
                 int ni = i + dir[0];
