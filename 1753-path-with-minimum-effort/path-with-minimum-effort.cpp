@@ -19,7 +19,7 @@ public:
             int i = node.second.first;
             int j = node.second.second;
 
-            if(d > dist[i][j])continue;
+            //if(d > dist[i][j])continue;
 
             for(auto dir : directions){
                 int ni = i + dir[0];
