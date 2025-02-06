@@ -21,7 +21,7 @@ public:
         for (const auto& [product, pairs] : productMap) {
             if (pairs.size() > 1) {
                 int count = pairs.size();
-                result += (count * (count - 1) / 2) * 8; // Combination count * 8 permutations
+                result += (count * (count - 1)) * 4; // Combination count * 8 permutations
             }
         }
         return result;
