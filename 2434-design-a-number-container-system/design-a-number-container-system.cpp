@@ -7,7 +7,7 @@ public:
     void change(int index, int number) {
         if (mp.find(index) != mp.end()) {
             int num = mp[index];
-            auto& indices = ind[num]; // Use reference to modify the actual set
+            auto& indices = ind[num]; 
             indices.erase(index);
             if (indices.empty()) {
                 ind.erase(num);
