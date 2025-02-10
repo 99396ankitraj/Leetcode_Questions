@@ -1,31 +1,55 @@
-#include <vector>
-using namespace std;
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        if (!l1) return l2;
-        if (!l2) return l1;
+    ListNode* merge(ListNode* head1 , ListNode* head2){
+        if(!head1) return head2;
+        if(!head2) return head1;
 
-        if (l1->val < l2->val) {
-            l1->next = mergeTwoLists(l1->next, l2);
-            return l1;
-        } else {
-            l2->next = mergeTwoLists(l1, l2->next);
-            return l2;
+        if(head1->val > head2->val) return merge(head2 , head1);
+
+        if(!head1->next){
+            head1->next = head2;
+            return head1;
+        } 
+
+        ListNode *small = head1;
+        ListNode *temp = small;
+        ListNode *curr1 = small->next;
+        ListNode *curr2 = head2;
+
+        while(curr1 && curr2){
+            if(curr1->val > curr2->val){
+                small->next = curr2;
+                curr2 = curr2->next;
+            }else{
+                small->next = curr1;
+                curr1 = curr1->next;
+            }
+            small = small->next;
         }
-    }
 
+        if(curr1) small->next = curr1;
+        if(curr2) small->next = curr2;
+
+        return temp;
+    }
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if (lists.empty()) return nullptr;
-        return divideAndConquer(lists, 0, lists.size() - 1);
-    }
+        int n = lists.size();
+        if(n == 0) return NULL;
+        ListNode* dummy = lists[0];
 
-    ListNode* divideAndConquer(vector<ListNode*>& lists, int left, int right) {
-        if (left == right) return lists[left];
-
-        int mid = left + (right - left) / 2;
-        ListNode* l1 = divideAndConquer(lists, left, mid);
-        ListNode* l2 = divideAndConquer(lists, mid + 1, right);
-        return mergeTwoLists(l1, l2);
+        for(int i = 1 ; i < n ; i++){
+            dummy = merge(dummy , lists[i]);
+        }
+     return dummy;
     }
 };
