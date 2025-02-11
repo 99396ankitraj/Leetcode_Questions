@@ -9,10 +9,7 @@ public:
             
             int si = ans.length()-m;
             if(si >= 0 && ans.substr(si , m) == part){
-                cout<<ans<<endl;
-                for(int i = 0 ; i < m ; i++){
-                    ans.pop_back();
-                }
+                ans.erase(ans.length() - m);
             }
         }
         return ans;
