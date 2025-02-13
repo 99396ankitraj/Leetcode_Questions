@@ -15,7 +15,7 @@ public:
         if(s > e) return NULL;
 
         int i = s;
-        for(;i <= e ; i++){
+        for(;i < e ; i++){
             if(preorder[ind] == inorder[i]) break;
         }
         TreeNode* root = new TreeNode(preorder[ind]);
