@@ -14,8 +14,8 @@ public:
     int solve(TreeNode* root, int targetSum,long long sum){
          if(root == NULL)
              return 0;
-         sum+=root->val;
-         return (sum == targetSum) + solve(root->left,targetSum,sum) + solve(root->right,targetSum,sum);
+         //sum+=root->val;
+         return (sum+root->val == targetSum) + solve(root->left,targetSum,sum + root->val) + solve(root->right,targetSum,sum+root->val);
         
     }
     // void solve(TreeNode* root,int Target,vector<int>v,int &count){
